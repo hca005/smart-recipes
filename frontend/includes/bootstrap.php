@@ -324,7 +324,14 @@ function find_recipe_by_id($id)
         }
     }
 
-    return null;
+    // Fallback: search in get_all_recipes() if DB row not found
+    $all = get_all_recipes();
+    foreach ($all as $rec) {
+        if ((int)$rec['id'] === (int)$id) {
+            return $rec;
+        }
+    }
+    return $all[0] ?? null;
 }
 
 // ── Bookmark helpers ──────────────────────────────────────────
