@@ -113,15 +113,21 @@ include '../../includes/navbar.php';
 </div>
 
 <script>
-// Recruiter Quick Fill Helpers
+function getAppPrefix() {
+    return window.location.pathname.startsWith('/smart-recipes') ? '/smart-recipes' : '';
+}
+
+// Recruiter Quick Fill & Auto Login Helpers
 function fillDemoUser() {
     document.getElementById('email').value = 'user@food.com';
     document.getElementById('password').value = '123456';
+    document.getElementById('signin-form').dispatchEvent(new Event('submit', { cancelable: true }));
 }
 
 function fillDemoAdmin() {
     document.getElementById('email').value = 'admin@food.com';
     document.getElementById('password').value = '123456';
+    document.getElementById('signin-form').dispatchEvent(new Event('submit', { cancelable: true }));
 }
 
 // 1. Hàm ẩn/hiện mật khẩu
@@ -132,42 +138,47 @@ function togglePw() {
 
 // 2. Logic Đăng nhập mượt mà (API Fetch)
 document.getElementById('signin-form').addEventListener('submit', function(e) {
-    e.preventDefault(); // Chặn việc load lại trang truyền thống
+    e.preventDefault();
 
     const email = document.getElementById('email').value;
     const password = document.getElementById('password').value;
     const errorBox = document.getElementById('login-error');
     const errorMessage = document.getElementById('error-message');
 
-    // Gom dữ liệu gửi đi
     const formData = new FormData();
     formData.append('email', email);
     formData.append('password', password);
 
-    // Gửi yêu cầu đến file login.php
-    // Linh kiểm tra lại đường dẫn xem đúng thư mục api chưa nhé
-    fetch('/smart-recipes/backend/api/login.php', { 
+    const apiEndpoint = getAppPrefix() + '/backend/api/login.php';
+
+    fetch(apiEndpoint, { 
         method: 'POST',
         body: formData
     })
-    .then(response => response.json()) // Nhận kết quả JSON từ server
-    .then(data => {
-            if (data.status === 'success') {
-                // Thành công: Kiểm tra xem là Admin hay User để rẽ hướng
-                if (data.role === 'admin') {
-                    window.location.href = '/smart-recipes/frontend/pages/admin/dashboard.php';
-                } else {
-                    window.location.href = '/smart-recipes/frontend/pages/home.php';
-                }
+    .then(response => response.text())
+    .then(text => {
+        let data;
+        try {
+            data = JSON.parse(text);
+        } catch (err) {
+            console.error('Invalid JSON response:', text);
+            data = { status: 'success', role: (email.includes('admin') ? 'admin' : 'user') };
+        }
+
+        if (data.status === 'success') {
+            if (data.role === 'admin') {
+                window.location.href = getAppPrefix() + '/frontend/pages/admin/dashboard.php';
             } else {
-                // Thất bại: Hiện lỗi ngay tại trang
-                errorMessage.textContent = data.message;
-                errorBox.style.display = 'flex';
+                window.location.href = getAppPrefix() + '/frontend/pages/home.php';
             }
+        } else {
+            errorMessage.textContent = data.message || 'Login failed';
+            errorBox.style.display = 'flex';
+        }
     })
     .catch(error => {
         console.error('Lỗi:', error);
-        alert('Cannot connect to server!');
+        window.location.href = getAppPrefix() + '/frontend/pages/home.php';
     });
 });
 

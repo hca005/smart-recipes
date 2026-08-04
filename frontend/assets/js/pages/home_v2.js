@@ -25,24 +25,20 @@ document.addEventListener('DOMContentLoaded', function () {
 
     const isLoggedIn = heroSearchInput.dataset.loggedIn === 'true';
 
-    // ---- Auth guard cho guest ----
+    // ---- Form submit event handler ----
+    heroSearchForm.addEventListener('submit', function (e) {
+        e.preventDefault();
+        const val = heroSearchInput.value.trim();
+        const basePath = window.location.pathname.startsWith('/smart-recipes') ? '/smart-recipes' : '';
+        if (val) {
+            window.location.href = basePath + '/frontend/pages/search/by_ingredients.php?ingredients=' + encodeURIComponent(val);
+        } else {
+            window.location.href = basePath + '/frontend/pages/recipes/all_recipes.php';
+        }
+    });
+
     if (!isLoggedIn) {
-        ['focus', 'click'].forEach(evt => {
-            heroSearchInput.addEventListener(evt, function () {
-                if (typeof window.showAuthModal === 'function') {
-                    window.showAuthModal();
-                }
-            });
-        });
-
-        heroSearchForm.addEventListener('submit', function (e) {
-            e.preventDefault();
-            if (typeof window.showAuthModal === 'function') {
-                window.showAuthModal();
-            }
-        });
-
-        return; // Không hiển thị dropdown cho guest
+        return; // Skip live dropdown for unauthenticated users, but allow search submit
     }
 
     // ---- Dropdown setup (chỉ cho user đã đăng nhập) ----

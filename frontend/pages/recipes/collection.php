@@ -5,32 +5,43 @@ $categoryId = $_GET['id'] ?? '';
 $category   = find_category_by_slug($categoryId);
 
 if (!$category) {
-    // Fallback: show first category
-    $allCats    = get_all_categories();
-    $category   = $allCats[0] ?? null;
-}
-
-if (!$category) {
-    header('Location: /smart-recipes/frontend/pages/home.php');
-    exit;
+    $allCats = get_all_categories();
+    foreach ($allCats as $cat) {
+        if (($cat['slug'] ?? '') === $categoryId || strtolower($cat['name'] ?? '') === strtolower($categoryId)) {
+            $category = $cat;
+            break;
+        }
+    }
+    if (!$category && !empty($categoryId)) {
+        $category = [
+            'name' => ucfirst($categoryId),
+            'slug' => strtolower($categoryId),
+            'description' => 'Explore delicious ' . strtolower($categoryId) . ' recipes.'
+        ];
+    } elseif (!$category) {
+        $category = $allCats[0] ?? ['name' => 'Recipes', 'slug' => 'recipes', 'description' => 'Browse recipes'];
+    }
 }
 
 // Map category to look like collection for UI template
 $collection = [
     'title' => $category['name'],
     'banner_title' => strtoupper($category['name']),
-    'subtitle' => $category['description'],
+    'subtitle' => $category['description'] ?? 'Explore featured recipes',
     'image' => $category['image'] ?? 'https://images.unsplash.com/photo-1546833999-b9f581a1996d?w=800&h=500&fit=crop',
-    'description' => $category['description']
+    'description' => $category['description'] ?? 'Delicious meals for all occasions.'
 ];
 
 // Get recipes for this category
 $collectionRecipes = [];
 $allRecipes = get_all_recipes();
 foreach ($allRecipes as $recipe) {
-    if (($recipe['category'] ?? '') === $category['slug']) {
+    if (empty($categoryId) || strtolower($recipe['category'] ?? '') === strtolower($category['slug']) || strtolower($recipe['category'] ?? '') === strtolower($categoryId)) {
         $collectionRecipes[] = $recipe;
     }
+}
+if (empty($collectionRecipes)) {
+    $collectionRecipes = $allRecipes;
 }
 
 $pageTitle        = htmlspecialchars($collection['title']) . ' – Food.';
