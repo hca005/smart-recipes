@@ -1,7 +1,11 @@
 (() => {
+    function getAppPrefix() {
+        return window.location.pathname.startsWith('/smart-recipes') ? '/smart-recipes' : '';
+    }
+
     const ROUTES = {
-        verifyEmail: '/smart-recipes/frontend/pages/auth/verify_email.php',
-        home: '/smart-recipes/frontend/pages/home.php'
+        verifyEmail: getAppPrefix() + '/frontend/pages/auth/verify_email.php',
+        home: getAppPrefix() + '/frontend/pages/home.php'
     };
 
     function $(id) {

@@ -2,11 +2,11 @@
 require_once '../../includes/bootstrap.php';
 
 if (is_logged_in()) {
-    redirect_to('/smart-recipes/frontend/pages/home.php');
+    redirect_to(BASE_URL . '/pages/home.php');
 }
 
 $pageTitle        = 'Sign In – Food.';
-$additionalStyles = ['/smart-recipes/frontend/assets/css/pages/auth.css'];
+$additionalStyles = [BASE_URL . '/assets/css/pages/auth.css'];
 include '../../includes/head.php';
 include '../../includes/navbar.php';
 ?>

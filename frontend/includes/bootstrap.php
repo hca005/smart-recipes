@@ -113,8 +113,10 @@ function get_all_recipes()
                 $mainImage = $row['main_image'];
                 if (strpos($mainImage, 'http') === 0) {
                     $imageUrl = $mainImage;
-                } else {
+                } elseif (!empty($mainImage) && file_exists(__DIR__ . '/../assets/images/recipes/' . $mainImage)) {
                     $imageUrl = BASE_URL . '/assets/images/recipes/' . $mainImage;
+                } else {
+                    $imageUrl = 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=800&fit=crop';
                 }
                 
                 $dbRecipes[] = [
@@ -282,8 +284,10 @@ function find_recipe_by_id($id)
                         // Nếu là URL đầy đủ thì giữ nguyên, nếu là tên file thì thêm path
                         if (strpos($s['image_url'], 'http') === 0) {
                             $stepImage = $s['image_url'];
-                        } else {
+                        } elseif (!empty($s['image_url']) && file_exists(__DIR__ . '/../assets/images/recipes/' . $s['image_url'])) {
                             $stepImage = BASE_URL . '/assets/images/recipes/' . $s['image_url'];
+                        } else {
+                            $stepImage = 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=800&fit=crop';
                         }
                     }
                     $steps[] = [
@@ -298,8 +302,10 @@ function find_recipe_by_id($id)
             $mainImage = $row['main_image'];
             if (strpos($mainImage, 'http') === 0) {
                 $imageUrl = $mainImage;
-            } else {
+            } elseif (!empty($mainImage) && file_exists(__DIR__ . '/../assets/images/recipes/' . $mainImage)) {
                 $imageUrl = BASE_URL . '/assets/images/recipes/' . $mainImage;
+            } else {
+                $imageUrl = 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=800&fit=crop';
             }
 
             $total = ((int)$row['prep_time'] + (int)$row['cook_time']);
