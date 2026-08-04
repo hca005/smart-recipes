@@ -49,7 +49,7 @@ $notif_weekly = ($settings['admin_notif_weekly'] ?? 'true') === 'true';
     <div class="adm-content">
         <div class="adm-page-header">
             <h1 class="adm-page-title">Admin Profile</h1>
-            <a href="/smart-recipes/frontend/pages/auth/logout.php" class="adm-btn adm-btn-red-outline" style="padding:0.5rem 1.25rem;">Logout</a>
+            <a href="<?php echo defined('BASE_URL') ? BASE_URL : '/frontend'; ?>/pages/auth/logout.php" class="adm-btn adm-btn-red-outline" style="padding:0.5rem 1.25rem;">Logout</a>
         </div>
 
         <div class="adm-profile-grid">
@@ -97,7 +97,7 @@ $notif_weekly = ($settings['admin_notif_weekly'] ?? 'true') === 'true';
                     </div>
                     <div class="adm-form-actions">
                         <button type="submit" class="adm-btn adm-btn-outline">Update Profile</button>
-                        <a href="/smart-recipes/frontend/pages/auth/logout.php" class="adm-btn adm-btn-red-outline">Logout</a>
+                        <a href="<?php echo defined('BASE_URL') ? BASE_URL : '/frontend'; ?>/pages/auth/logout.php" class="adm-btn adm-btn-red-outline">Logout</a>
                     </div>
                     </form>
                 </div>

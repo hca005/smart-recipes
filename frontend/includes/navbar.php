@@ -196,18 +196,18 @@ $seasonalMenu = array_slice($recipesMenu, 6, 3);
                 <span class="udp-name"><?= htmlspecialchars($_nav_user['display_name']) ?></span>
             </div>
             <div class="udp-divider"></div>
-            <a class="udp-item" href="/smart-recipes/frontend/pages/user/profile.php" role="menuitem">
+            <a class="udp-item" href="<?php echo defined('BASE_URL') ? BASE_URL : '/frontend'; ?>/pages/user/profile.php" role="menuitem">
                 <span class="udp-icon"><svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></span>
                 <span>Edit profile</span>
                 <span class="udp-chevron"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></span>
             </a>
-            <a class="udp-item" href="/smart-recipes/frontend/pages/user/account_settings.php" role="menuitem">
+            <a class="udp-item" href="<?php echo defined('BASE_URL') ? BASE_URL : '/frontend'; ?>/pages/user/account_settings.php" role="menuitem">
                 <span class="udp-icon"><svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg></span>
                 <span>Account settings and privacy</span>
                 <span class="udp-chevron"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></span>
             </a>
             <div class="udp-divider"></div>
-            <a class="udp-item udp-item--logout" href="/smart-recipes/frontend/pages/auth/logout.php" role="menuitem">
+            <a class="udp-item udp-item--logout" href="<?php echo defined('BASE_URL') ? BASE_URL : '/frontend'; ?>/pages/auth/logout.php" role="menuitem">
                 <span class="udp-icon udp-icon--red"><svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg></span>
                 <span>Log out</span>
                 <span class="udp-chevron udp-chevron--red"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></span>
