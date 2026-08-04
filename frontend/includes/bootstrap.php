@@ -110,13 +110,19 @@ function get_all_recipes()
                 $total = ((int)$row['prep_time'] + (int)$row['cook_time']);
                 
                 // Xử lý ảnh: nếu là URL đầy đủ thì giữ nguyên, nếu là tên file thì thêm path
-                $mainImage = $row['main_image'];
+                $mainImage = $row['main_image'] ?? '';
                 if (strpos($mainImage, 'http') === 0) {
                     $imageUrl = $mainImage;
-                } elseif (!empty($mainImage) && file_exists(__DIR__ . '/../assets/images/recipes/' . $mainImage)) {
-                    $imageUrl = BASE_URL . '/assets/images/recipes/' . $mainImage;
                 } else {
-                    $imageUrl = 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=800&fit=crop';
+                    $foodPhotos = [
+                        'https://images.unsplash.com/photo-1621996346565-e3d5d6281293?w=800&fit=crop',
+                        'https://images.unsplash.com/photo-1540420773420-3366772f4999?w=800&fit=crop',
+                        'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=800&fit=crop',
+                        'https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?w=800&fit=crop',
+                        'https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=800&fit=crop'
+                    ];
+                    $recId = (int)($row['id'] ?? 1);
+                    $imageUrl = $foodPhotos[$recId % count($foodPhotos)];
                 }
                 
                 $dbRecipes[] = [
