@@ -8,7 +8,10 @@ if (session_status() === PHP_SESSION_NONE) {
 }
 
 // ── Path constants ────────────────────────────────────────────
-define('BASE_URL',    '/smart-recipes/frontend');
+$_req_uri = $_SERVER['REQUEST_URI'] ?? '';
+$_app_prefix = (strpos($_req_uri, '/smart-recipes') === 0) ? '/smart-recipes' : '';
+define('APP_PREFIX',  $_app_prefix);
+define('BASE_URL',    $_app_prefix . '/frontend');
 define('USERS_JSON',  __DIR__ . '/../data/users.json');
 
 // ── Redirect helper ───────────────────────────────────────────
@@ -41,16 +44,14 @@ function require_login()
 {
     if (!is_logged_in()) {
         $_SESSION['redirect_after_login'] = $_SERVER['REQUEST_URI'];
-        // SỬA CHỖ NÀY: Dẫn đúng vào file sign_in.php của con
-        // Nếu file của con nằm trong folder user thì sửa thành /pages/user/sign_in.php
-        redirect_to('/smart-recipes/frontend/pages/auth/sign_in.php');
+        redirect_to(APP_PREFIX . '/frontend/pages/auth/sign_in.php');
     }
 }
 
 function require_admin()
 {
     if (!is_admin()) {
-        redirect_to('/smart-recipes/frontend/pages/home.php');
+        redirect_to(APP_PREFIX . '/frontend/pages/home.php');
     }
 }
 
@@ -113,7 +114,7 @@ function get_all_recipes()
                 if (strpos($mainImage, 'http') === 0) {
                     $imageUrl = $mainImage;
                 } else {
-                    $imageUrl = '/smart-recipes/frontend/assets/images/recipes/' . $mainImage;
+                    $imageUrl = BASE_URL . '/assets/images/recipes/' . $mainImage;
                 }
                 
                 $dbRecipes[] = [
@@ -206,7 +207,7 @@ function find_recipe_by_id($id)
                         if (strpos($s['image_url'], 'http') === 0) {
                             $stepImage = $s['image_url'];
                         } else {
-                            $stepImage = '/smart-recipes/frontend/assets/images/recipes/' . $s['image_url'];
+                            $stepImage = BASE_URL . '/assets/images/recipes/' . $s['image_url'];
                         }
                     }
                     $steps[] = [
@@ -222,7 +223,7 @@ function find_recipe_by_id($id)
             if (strpos($mainImage, 'http') === 0) {
                 $imageUrl = $mainImage;
             } else {
-                $imageUrl = '/smart-recipes/frontend/assets/images/recipes/' . $mainImage;
+                $imageUrl = BASE_URL . '/assets/images/recipes/' . $mainImage;
             }
 
             $total = ((int)$row['prep_time'] + (int)$row['cook_time']);

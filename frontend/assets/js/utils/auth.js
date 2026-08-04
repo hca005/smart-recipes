@@ -1,4 +1,7 @@
-// Authentication Utilities
+// Helper for dynamic app path prefix
+function getAppPrefix() {
+    return window.location.pathname.startsWith('/smart-recipes') ? '/smart-recipes' : '';
+}
 
 // Check if user is authenticated
 function isAuthenticated() {
@@ -32,7 +35,7 @@ async function login(email, password) {
         formData.append('email', email);
         formData.append('password', password);
 
-        const response = await fetch('/smart-recipes/backend/api/login.php', {
+        const response = await fetch(getAppPrefix() + '/backend/api/login.php', {
             method: 'POST',
             body: formData,
         });
@@ -64,7 +67,7 @@ async function register(userData) {
             formData.append(key, value);
         });
 
-        const response = await fetch('/smart-recipes/backend/api/register.php', {
+        const response = await fetch(getAppPrefix() + '/backend/api/register.php', {
             method: 'POST',
             body: formData,
         });
@@ -90,14 +93,14 @@ async function register(userData) {
 // Logout function
 async function logout() {
     try {
-        await fetch('/smart-recipes/backend/api/logout.php', {
+        await fetch(getAppPrefix() + '/backend/api/logout.php', {
             method: 'POST',
         });
     } catch (error) {
         console.error('Logout error:', error);
     } finally {
         clearAuth();
-        window.location.href = '/smart-recipes/frontend/pages/home.php';
+        window.location.href = getAppPrefix() + '/frontend/pages/home.php';
     }
 }
 
@@ -106,7 +109,7 @@ function requireAuth() {
     if (!isAuthenticated()) {
         // Save current URL to redirect back after login
         localStorage.setItem('redirect_after_login', window.location.pathname);
-        window.location.href = '/smart-recipes/frontend/pages/auth/sign_in.php';
+        window.location.href = getAppPrefix() + '/frontend/pages/auth/sign_in.php';
         return false;
     }
     return true;
@@ -115,7 +118,7 @@ function requireAuth() {
 // Redirect if authenticated (for login/register pages)
 function redirectIfAuthenticated() {
     if (isAuthenticated()) {
-        const redirect = localStorage.getItem('redirect_after_login') || '/smart-recipes/frontend/pages/home.php';
+        const redirect = localStorage.getItem('redirect_after_login') || (getAppPrefix() + '/frontend/pages/home.php');
         localStorage.removeItem('redirect_after_login');
         window.location.href = redirect;
         return true;

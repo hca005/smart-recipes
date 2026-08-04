@@ -1,6 +1,5 @@
-// API Utility Functions
-
-const API_BASE_URL = '/smart-recipes/backend/api'; // XAMPP PHP API directory
+const basePath = window.location.pathname.startsWith('/smart-recipes') ? '/smart-recipes' : '';
+const API_BASE_URL = basePath + '/backend/api';
 
 // Generic API call function
 async function apiCall(endpoint, options = {}) {

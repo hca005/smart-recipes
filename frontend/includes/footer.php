@@ -104,10 +104,16 @@ window.closeAuthModal = closeAuthModal;
 </script>
 
 <!-- Scripts -->
-<script src="/smart-recipes/frontend/assets/js/utils/helpers.js"></script>
+<script src="<?php echo defined('BASE_URL') ? BASE_URL : '/frontend'; ?>/assets/js/utils/helpers.js"></script>
 <?php if (isset($additionalScripts)): ?>
     <?php foreach ($additionalScripts as $script): ?>
-        <script src="<?php echo $script; ?>"></script>
+        <?php 
+            $scriptUrl = $script;
+            if (strpos($scriptUrl, '/smart-recipes/frontend') === 0 && defined('BASE_URL')) {
+                $scriptUrl = str_replace('/smart-recipes/frontend', BASE_URL, $scriptUrl);
+            }
+        ?>
+        <script src="<?php echo $scriptUrl; ?>"></script>
     <?php endforeach; ?>
 <?php endif; ?>
 
