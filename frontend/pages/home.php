@@ -1,5 +1,5 @@
 <?php
-require_once '../includes/bootstrap.php';
+require_once __DIR__ . '/../includes/bootstrap.php';
 $allRecipes = get_all_recipes();
 $allCategories = get_all_categories();
 
@@ -29,8 +29,8 @@ $dontMissCollections = array_slice($mappedCategories, 3, 5);
 $featuredCollection = count($mappedCategories) > 8 ? $mappedCategories[8] : ($mappedCategories[0] ?? null);
 $pageTitle = 'Food. - Discover What to Cook Today';
 $additionalScripts = ['/smart-recipes/frontend/assets/js/pages/home_v2.js'];
-include '../includes/head.php';
-include '../includes/navbar.php';
+include __DIR__ . '/../includes/head.php';
+include __DIR__ . '/../includes/navbar.php';
 ?>
 
 <!-- Hero Section -->
@@ -141,6 +141,6 @@ window.homepageData = {
 </script>
 
 <!-- Newsletter Section -->
-<?php include '../includes/newsletter.php'; ?>
+<?php include __DIR__ . '/../includes/newsletter.php'; ?>
 
-<?php include '../includes/footer.php'; ?>
+<?php include __DIR__ . '/../includes/footer.php'; ?>
