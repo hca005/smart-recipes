@@ -1,6 +1,6 @@
 # 🍳 Smart Recipe Platform
 
-[![Build & Deploy Status](https://img.shields.io/badge/deployment-live-brightgreen?style=for-the-badge&logo=render)](https://your-live-demo-url.render.com)
+[![Build & Deploy Status](https://img.shields.io/badge/deployment-live-brightgreen?style=for-the-badge&logo=render)](https://smart-recipes-l8mu.onrender.com/)
 [![PHP](https://img.shields.io/badge/PHP-8.2-777BB4?style=for-the-badge&logo=php&logoColor=white)](https://www.php.net/)
 [![MySQL](https://img.shields.io/badge/MySQL-8.0-4479A1?style=for-the-badge&logo=mysql&logoColor=white)](https://www.mysql.com/)
 [![Docker](https://img.shields.io/badge/Docker-Ready-2496ED?style=for-the-badge&logo=docker&logoColor=white)](https://www.docker.com/)
