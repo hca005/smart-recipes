@@ -1,0 +1,37 @@
+version: '3.8'
+
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: smart_recipes_web
+    ports:
+      - "8080:80"
+    environment:
+      DB_HOST: db
+      DB_USER: recipe_user
+      DB_PASS: recipe_password
+      DB_NAME: food_recipe_db
+      DB_PORT: 3306
+    depends_on:
+      - db
+    restart: always
+
+  db:
+    image: mysql:8.0
+    container_name: smart_recipes_db
+    environment:
+      MYSQL_ROOT_PASSWORD: root_password
+      MYSQL_DATABASE: food_recipe_db
+      MYSQL_USER: recipe_user
+      MYSQL_PASSWORD: recipe_password
+    ports:
+      - "3306:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+      - ./database/food_recipe_db\ \(1\).sql:/docker-entrypoint-initdb.d/init.sql
+    restart: always
+
+volumes:
+  db_data:

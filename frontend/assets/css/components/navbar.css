@@ -1,0 +1,369 @@
+/* ============================================================
+   navbar.css  –  Smart Recipe
+   ============================================================ */
+
+/* ── Base ──────────────────────────────────────────────────── */
+.navbar {
+    background-color: var(--color-primary);
+    color: var(--color-white);
+    position: sticky;
+    top: 0;
+    z-index: var(--z-sticky);
+    height: 150px;
+    overflow: visible; 
+}
+
+.navbar-container {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 1rem;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    overflow: visible;  
+}
+
+/* ── Logo ──────────────────────────────────────────────────── */
+.navbar-logo {
+    font-family: var(--font-logo);
+    font-size: 40px;
+    color: var(--color-white);
+    transition: color 0.2s;
+    text-decoration: none;
+}
+.navbar-logo:hover { color: var(--yellow-400); }
+.navbar-logo .dot  { color: var(--yellow-400); }
+
+/* ── Navigation Menu ───────────────────────────────────────── */
+.navbar-menu {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.navbar-item { position: relative; }
+
+.navbar-link {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--color-white);
+    padding: 0.75rem 1rem;
+    transition: color 0.2s;
+    cursor: pointer;
+    display: block;
+}
+
+.navbar-link:hover,
+.navbar-item:hover .navbar-link { color: var(--yellow-400); }
+
+/* ── Nav Dropdown ──────────────────────────────────────────── */
+.dropdown-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: var(--color-primary);
+    min-width: 250px;
+    padding: 1rem 0;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: all 0.2s;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.25);
+    z-index: 200;
+    list-style: none;
+}
+
+.navbar-item:hover .dropdown-menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.dropdown-menu li { list-style: none; }
+
+.dropdown-menu a {
+    display: block;
+    padding: 0.75rem 1.5rem;
+    color: var(--color-white);
+    font-size: 16px;
+    transition: all 0.15s;
+    text-decoration: none;
+}
+
+.dropdown-menu a:hover {
+    background-color: rgba(255,255,255,0.1);
+    padding-left: 2rem;
+}
+
+.dropdown-heading {
+    color: var(--color-white);
+    font-weight: 700;
+    padding: 0.5rem 1.5rem;
+    font-size: 14px;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    margin-bottom: 0.5rem;
+}
+
+.dropdown-see-more {
+    color: var(--yellow-400) !important;
+    font-weight: 600;
+    border-top: 1px solid rgba(255,255,255,0.1);
+    margin-top: 0.5rem;
+    padding-top: 1rem !important;
+}
+.dropdown-see-more:hover { color: var(--yellow-500) !important; }
+
+/* ── Right Section ─────────────────────────────────────────── */
+.navbar-right {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex-shrink: 0;
+}
+
+/* ── Search ────────────────────────────────────────────────── */
+.navbar-search {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background-color: var(--gray-800);
+    border-radius: 9999px;
+    padding: 0.5rem 1rem;
+    width: 300px;          /* cố định cùng 1 size */
+    min-width: 300px;
+    max-width: 300px;
+    box-sizing: border-box;
+    flex-shrink: 0;        /* không cho bị co lại */
+}
+
+.navbar-search input {
+    background: transparent;
+    border: none;
+    outline: none;
+    color: var(--color-white);
+    font-size: 14px;
+    width: 100%;
+    min-width: 0;
+    flex: 1;
+}
+
+.navbar-search input::placeholder {
+    color: var(--gray-400);
+}
+
+.navbar-search svg {
+    color: var(--gray-400);
+    flex-shrink: 0;
+}
+
+/* ── Auth Buttons (guest) ──────────────────────────────────── */
+.navbar-auth {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.btn-login {
+    color: var(--color-white);
+    font-weight: 600;
+    font-size: 14px;
+    padding: 0.5rem 1rem;
+    transition: color 0.15s;
+    text-decoration: none;
+}
+.btn-login:hover { color: var(--yellow-400); }
+
+.btn-register {
+    border: 2px solid var(--yellow-400);
+    color: var(--yellow-400);
+    padding: 0.5rem 1.5rem;
+    border-radius: 9999px;
+    font-weight: 600;
+    font-size: 14px;
+    transition: all 0.15s;
+    text-decoration: none;
+}
+.btn-register:hover {
+    background-color: var(--yellow-400);
+    color: var(--color-primary);
+}
+
+/* ══════════════════════════════════════════════════════════════
+   USER MENU  (logged-in state)
+   ══════════════════════════════════════════════════════════════ */
+
+.user-menu {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+/* ── Avatar trigger button ─────────────────────────────────── */
+.user-avatar-btn {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 2px solid transparent;
+    background: none;
+    padding: 0;
+    cursor: pointer;
+    transition: border-color 0.15s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.user-avatar-btn:hover,
+.user-avatar-btn[aria-expanded="true"] {
+    border-color: var(--yellow-400);
+}
+
+.user-avatar-img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    display: block;
+}
+
+/* ── Dropdown Panel ────────────────────────────────────────── */
+.user-dropdown-panel {
+    position: absolute;
+    top: calc(100% + 14px);
+    right: 0;
+    width: 300px;
+    background: #ffffff;
+    border: 1px solid rgba(0,0,0,0.09);
+    border-radius: 16px;
+    box-shadow: 0 16px 48px rgba(0,0,0,0.18), 0 2px 8px rgba(0,0,0,0.06);
+    padding: 1rem 0 0.6rem;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-8px) scale(0.97);
+    transform-origin: top right;
+    transition: opacity 0.18s ease, transform 0.18s ease, visibility 0.18s;
+    pointer-events: none;
+    z-index: 9999;
+}
+
+.user-dropdown-panel.is-open {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0) scale(1);
+    pointer-events: auto;
+}
+
+/* ── Dropdown Header ───────────────────────────────────────── */
+.udp-header {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    padding: 0 1.1rem 1rem;
+}
+
+.udp-avatar {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    object-fit: cover;
+    flex-shrink: 0;
+    border: 2px solid #f0f0f0;
+}
+
+.udp-name {
+    font-size: 0.9375rem;
+    font-weight: 700;
+    color: #111111;
+    line-height: 1.2;
+}
+
+/* ── Divider ───────────────────────────────────────────────── */
+.udp-divider {
+    height: 1px;
+    background: #f0f0f0;
+    margin: 0.3rem 0;
+}
+
+/* ── Menu Items ────────────────────────────────────────────── */
+.udp-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.65rem 1.1rem;
+    color: #333333;
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: background 0.12s;
+    cursor: pointer;
+    background: none;
+    border: none;
+    width: 100%;
+    text-align: left;
+    box-sizing: border-box;
+}
+
+.udp-item:hover { background: #f8f8f8; }
+
+.udp-icon {
+    width: 32px;
+    height: 32px;
+    min-width: 32px;
+    border-radius: 50%;
+    background: #f2f2f2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #555555;
+    flex-shrink: 0;
+}
+
+.udp-icon--red {
+    background: #fff0f0;
+    color: #e53e3e;
+}
+
+.udp-item > span:not(.udp-icon):not(.udp-chevron) {
+    flex: 1;
+}
+
+.udp-chevron {
+    color: #c0c0c0;
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+}
+
+.udp-item--logout { color: #e53e3e; }
+.udp-chevron--red { color: rgba(229,62,62,0.45); }
+
+/* ── Mobile ────────────────────────────────────────────────── */
+.mobile-menu-toggle {
+    display: none;
+    color: var(--color-white);
+    font-size: 1.5rem;
+}
+
+@media (max-width: 1024px) {
+    .navbar-menu { gap: 1rem; }
+    .navbar-link  { font-size: 16px; }
+}
+
+@media (max-width: 768px) {
+    .navbar { height: auto; padding: 1rem 0; }
+    .navbar-menu        { display: none; }
+    .navbar-search      { display: none; }
+    .mobile-menu-toggle { display: block; }
+}
+.udp-name {
+    color: black !important;
+}
+
+.udp-avatar {
+    outline: 3px solid lime !important;
+}

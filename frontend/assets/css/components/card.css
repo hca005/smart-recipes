@@ -1,0 +1,144 @@
+/* Card Styles */
+.card {
+    background-color: var(--color-white);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    box-shadow: var(--shadow-md);
+    transition: all var(--transition-base);
+}
+
+.card:hover {
+    box-shadow: var(--shadow-xl);
+    transform: translateY(-4px);
+}
+
+.card-image {
+    position: relative;
+    height: 200px;
+    overflow: hidden;
+    background-color: var(--gray-200);
+}
+
+.card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform var(--transition-slow);
+}
+
+.card:hover .card-image img {
+    transform: scale(1.05);
+}
+
+.card-body {
+    padding: 1rem;
+}
+
+.card-title {
+    font-size: var(--text-base);
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    color: var(--color-text);
+}
+
+.card-text {
+    font-size: var(--text-sm);
+    color: var(--color-text-light);
+    line-height: 1.6;
+}
+
+.card-meta {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 0.75rem;
+    font-size: var(--text-sm);
+    color: var(--color-text-light);
+}
+
+.card-meta-item {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+}
+
+/* Collection Card */
+.collection-card {
+    position: relative;
+    width: 368px;
+    height: 437px;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    cursor: pointer;
+    transition: transform var(--transition-base);
+}
+
+.collection-card:hover {
+    transform: scale(1.05);
+}
+
+.collection-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: brightness(0.6);
+}
+
+.collection-card-content {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 2rem;
+    color: var(--color-white);
+}
+
+.collection-card-category {
+    font-size: var(--text-sm);
+    margin-bottom: 0.5rem;
+}
+
+.collection-card-title {
+    font-size: var(--text-xl);
+    font-weight: 700;
+}
+
+/* Category Card (Circular) */
+.category-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+    transition: transform var(--transition-base);
+}
+
+.category-card:hover {
+    transform: scale(1.05);
+}
+
+.category-card-image {
+    position: relative;
+    width: 200px;
+    height: 185px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin-bottom: 0.75rem;
+}
+
+.category-card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.category-card-overlay {
+    position: absolute;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.3);
+}
+
+.category-card-title {
+    font-size: var(--text-sm);
+    font-weight: 700;
+    text-align: center;
+}

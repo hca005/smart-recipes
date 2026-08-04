@@ -1,0 +1,816 @@
+/* Search Page Styles */
+.search-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+}
+
+.search-header {
+    background: linear-gradient(135deg, #FCD34D 0%, #F59E0B 100%);
+    padding: 3rem 2rem;
+    border-radius: 1rem;
+    margin-bottom: 2rem;
+    text-align: center;
+    color: white;
+}
+
+.search-header-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+}
+
+.search-header-subtitle {
+    font-size: 1.125rem;
+    margin-bottom: 2rem;
+    opacity: 0.9;
+}
+
+.search-bar-large {
+    max-width: 700px;
+    margin: 0 auto;
+    display: flex;
+    gap: 0.5rem;
+    background: white;
+    padding: 0.5rem;
+    border-radius: 9999px;
+}
+
+.search-bar-large input {
+    flex: 1;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+    outline: none;
+}
+
+.search-bar-large button {
+    padding: 0.75rem 2rem;
+    background: #000000;
+    color: white;
+    border: none;
+    border-radius: 9999px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.search-bar-large button:hover {
+    background: #1F2937;
+}
+
+.search-content {
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    gap: 2rem;
+}
+
+.search-filters {
+    background: white;
+    border-radius: 1rem;
+    padding: 1.5rem;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    height: fit-content;
+    position: sticky;
+    top: 2rem;
+}
+
+.search-filter-section {
+    margin-bottom: 2rem;
+}
+
+.search-filter-title {
+    font-weight: 700;
+    margin-bottom: 1rem;
+    font-size: 1.125rem;
+}
+
+.search-filter-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.search-filter-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+}
+
+.search-filter-item input[type="checkbox"] {
+    width: 1.125rem;
+    height: 1.125rem;
+}
+
+.search-filter-item label {
+    flex: 1;
+    cursor: pointer;
+}
+
+.search-filter-count {
+    color: #6B7280;
+    font-size: 0.875rem;
+}
+
+.search-results {
+    background: white;
+    border-radius: 1rem;
+    padding: 2rem;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.search-results-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 2px solid #E5E7EB;
+}
+
+.search-results-info {
+    font-size: 1.125rem;
+}
+
+.search-results-info strong {
+    font-weight: 700;
+}
+
+.search-sort {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.search-sort select {
+    padding: 0.5rem 1rem;
+    border: 1px solid #E5E7EB;
+    border-radius: 0.5rem;
+    font-size: 0.875rem;
+}
+
+.search-results-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 2rem;
+}
+
+.search-no-results {
+    text-align: center;
+    padding: 4rem 2rem;
+}
+
+.search-no-results-icon {
+    font-size: 4rem;
+    margin-bottom: 1rem;
+    opacity: 0.3;
+}
+
+.search-no-results-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+}
+
+.search-no-results-text {
+    color: #6B7280;
+}
+
+.search-pagination {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-top: 2rem;
+}
+
+.search-pagination-btn {
+    padding: 0.5rem 1rem;
+    border: 1px solid #E5E7EB;
+    background: white;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.search-pagination-btn:hover {
+    background: #F9FAFB;
+}
+
+.search-pagination-btn.active {
+    background: #FCD34D;
+    border-color: #FCD34D;
+    font-weight: 600;
+}
+
+@media (max-width: 1024px) {
+    .search-content {
+        grid-template-columns: 1fr;
+    }
+    
+    .search-filters {
+        position: static;
+    }
+}
+/* ============================================================
+   Ingredient Search – Hero Dropdown  (home.php)
+   ============================================================ */
+
+.hero-search {
+    position: relative;   /* đảm bảo dropdown định vị đúng */
+}
+
+.hero-dropdown {
+    position: absolute;
+    top: calc(100% + 8px);
+    left: 0;
+    right: 0;
+    background: #fff;
+    border-radius: 14px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.22);
+    overflow: hidden;
+    z-index: 9999;
+    display: none;
+    animation: dropdownFadeIn 0.18s ease forwards;
+}
+
+@keyframes dropdownFadeIn {
+    from { opacity: 0; transform: translateY(-8px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+.hero-dropdown.is-open {
+    display: block;
+}
+
+.hero-dropdown-list {
+    list-style: none;
+    margin: 0;
+    padding: 0.5rem 0;
+    max-height: 380px;
+    overflow-y: auto;
+}
+
+.hero-dropdown-item {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+    padding: 0.65rem 1rem;
+    cursor: pointer;
+    transition: background 0.12s ease;
+    text-decoration: none;
+    color: inherit;
+}
+
+.hero-dropdown-item:hover {
+    background: #fafafa;
+}
+
+.hero-dropdown-item__img {
+    width: 52px;
+    height: 52px;
+    border-radius: 8px;
+    object-fit: cover;
+    flex-shrink: 0;
+    background: #f3f4f6;
+}
+
+.hero-dropdown-item__info {
+    flex: 1;
+    min-width: 0;
+}
+
+.hero-dropdown-item__title {
+    font-size: 0.88rem;
+    font-weight: 700;
+    color: #111;
+    margin: 0 0 2px;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.hero-dropdown-item__meta {
+    font-size: 0.76rem;
+    color: #9ca3af;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.hero-dropdown-footer {
+    border-top: 1px solid #f3f4f6;
+    padding: 0.75rem 1rem;
+    text-align: center;
+}
+
+.hero-dropdown-see-more {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    color: #F59E0B;
+    font-weight: 700;
+    font-size: 0.88rem;
+    text-decoration: none;
+    letter-spacing: 0.03em;
+    transition: color 0.12s ease;
+}
+
+.hero-dropdown-see-more:hover {
+    color: #d97706;
+}
+
+.hero-dropdown-see-more svg {
+    transition: transform 0.15s ease;
+}
+
+.hero-dropdown-see-more:hover svg {
+    transform: translateX(3px);
+}
+
+.hero-dropdown-empty {
+    padding: 2rem 1rem;
+    text-align: center;
+    color: #9ca3af;
+    font-size: 0.88rem;
+}
+
+/* ============================================================
+   Ingredient Search – Results Page  (by_ingredients.php)
+   ============================================================ */
+
+/* Dark search header */
+.si-header {
+    background: #111;
+    padding: 1.25rem 0 1.5rem;
+}
+
+.si-header-lead {
+    color: #9ca3af;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 0.75rem;
+}
+
+.si-header-lead strong {
+    color: #fff;
+}
+
+.si-search-bar {
+    display: flex;
+    align-items: stretch;
+    max-width: 520px;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 2px solid #333;
+}
+
+.si-search-input {
+    flex: 1;
+    background: #1a1a1a;
+    border: none;
+    outline: none;
+    color: #fff;
+    font-size: 0.95rem;
+    padding: 0.75rem 1rem;
+    font-family: inherit;
+}
+
+.si-search-input::placeholder {
+    color: #6b7280;
+}
+
+.si-search-btn {
+    background: #F59E0B;
+    color: #111;
+    border: none;
+    padding: 0 1.4rem;
+    font-weight: 700;
+    font-size: 0.9rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    transition: background 0.15s ease;
+    letter-spacing: 0.03em;
+}
+
+.si-search-btn:hover {
+    background: #d97706;
+}
+
+/* Result count strip */
+.si-results-strip {
+    background: #f3f4f6;
+    padding: 2rem 0;
+    margin-bottom: 2.5rem;
+}
+
+.si-results-strip .container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.si-result-count-title {
+    font-size: 2.8rem;
+    font-weight: 800;
+    color: #111;
+    line-height: 1;
+    letter-spacing: -0.02em;
+}
+
+.si-sort-row {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-size: 0.85rem;
+    color: #6b7280;
+}
+
+.si-sort-select {
+    border: 1px solid #d1d5db;
+    border-radius: 6px;
+    padding: 0.35rem 0.75rem;
+    font-size: 0.85rem;
+    font-family: inherit;
+    background: #fff;
+    color: #374151;
+    cursor: pointer;
+    outline: none;
+}
+
+.si-sort-select:focus {
+    border-color: #F59E0B;
+}
+
+/* Results grid */
+.si-grid-wrapper {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 1rem 4rem;
+}
+
+.si-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0;
+}
+
+/* Recipe card */
+.si-card {
+    display: flex;
+    flex-direction: column;
+    padding: 1.25rem;
+    transition: background 0.15s ease;
+    text-decoration: none;
+    color: inherit;
+}
+
+.si-card:hover {
+    background: #f9fafb;
+}
+
+.si-card__img {
+    width: 100%;
+    aspect-ratio: 4/3;
+    border-radius: 10px;
+    overflow: hidden;
+    background: #e5e7eb;
+    margin-bottom: 0.85rem;
+}
+
+.si-card__img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.3s ease;
+}
+
+.si-card:hover .si-card__img img {
+    transform: scale(1.04);
+}
+
+.si-card__title {
+    font-size: 0.95rem;
+    font-weight: 700;
+    line-height: 1.35;
+    color: #111;
+    margin: 0 0 0.25rem;
+    text-transform: uppercase;
+    letter-spacing: 0.01em;
+}
+
+.si-card__author {
+    font-size: 0.78rem;
+    color: #6b7280;
+    margin: 0 0 0.5rem;
+}
+
+.si-card__author span {
+    color: #F59E0B;
+    font-weight: 600;
+}
+
+.si-card__meta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+}
+
+.si-card__stars {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+}
+
+.si-card__reviews {
+    font-size: 0.75rem;
+    color: #9ca3af;
+    margin-left: 4px;
+}
+
+.si-card__time {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 0.8rem;
+    color: #6b7280;
+}
+
+.si-card__divider {
+    margin-top: 1.1rem;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.si-card:hover .si-card__divider {
+    border-color: #F59E0B;
+}
+
+/* No results */
+.si-no-results {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 5rem 1rem;
+    text-align: center;
+    color: #6b7280;
+    gap: 1rem;
+}
+
+.si-no-results svg { opacity: 0.25; }
+
+.si-no-results h3 {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: #374151;
+}
+
+.si-no-results p {
+    font-size: 0.95rem;
+    max-width: 360px;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+    .si-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 560px) {
+    .si-grid                  { grid-template-columns: 1fr; }
+    .si-result-count-title    { font-size: 2rem; }
+}
+/* ===== SMART SEARCH PAGE TUNING ===== */
+
+/* chữ header to hơn */
+.si-header-lead {
+    font-size: 1.05rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    line-height: 1.5;
+    color: #ffffff;
+}
+
+.si-brand {
+    color: #ffffff;
+    font-weight: 800;
+}
+
+.si-brand-dot {
+    color: #FCD34D;
+}
+
+/* search bar chính */
+.si-search-bar {
+    display: flex;
+    align-items: center;
+    max-width: 760px;
+    width: 100%;
+    border-radius: 14px;
+    overflow: hidden;
+}
+
+.si-search-input {
+    flex: 1;
+    height: 54px;
+    padding: 0 1rem;
+    font-size: 1.05rem;
+    font-weight: 500;
+}
+
+.si-search-input::placeholder {
+    font-size: 1rem;
+}
+
+/* nút search */
+.si-search-btn {
+    height: 54px;
+    padding: 0 1.35rem;
+    font-size: 1rem;
+    font-weight: 700;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+}
+
+/* icon kính lúp màu vàng */
+.si-search-btn svg {
+    stroke: #FCD34D !important;
+}
+
+/* tiêu đề số kết quả to hơn */
+.si-result-count-title {
+    font-size: 3rem;
+    font-weight: 800;
+    line-height: 1;
+    letter-spacing: -0.02em;
+}
+
+/* sort row to hơn một chút */
+.si-sort-row label,
+.si-sort-select {
+    font-size: 0.95rem;
+}
+
+/* card title to hơn nhẹ */
+.si-card__title {
+    font-size: 1.02rem;
+    line-height: 1.35;
+}
+
+/* mobile */
+@media (max-width: 768px) {
+    .si-header-lead {
+        font-size: 0.9rem;
+        line-height: 1.45;
+    }
+
+    .si-search-input,
+    .si-search-btn {
+        height: 48px;
+        font-size: 0.95rem;
+    }
+
+    .si-result-count-title {
+        font-size: 2.2rem;
+    }
+}
+.navbar-search svg {
+    color: #FCD34D !important;
+    stroke: #FCD34D !important;
+}
+/* ===== SMART SEARCH HEADER - MATCH FIGMA ===== */
+
+.si-header {
+    background: #0b0b0d;
+    padding: 1rem 0 1.25rem;
+}
+
+.si-header .container {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
+.si-header-lead {
+    margin: 0 0 0.7rem 0;
+    font-size: 0.82rem;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    line-height: 1.4;
+    color: #ffffff;
+    text-transform: uppercase;
+}
+
+.si-brand {
+    color: #ffffff;
+    font-weight: 800;
+}
+
+.si-brand-dot {
+    color: #FCD34D;
+}
+
+/* thanh search đúng mẫu ảnh 2 */
+.si-search-bar {
+    display: flex;
+    align-items: stretch;
+    width: 100%;
+    max-width: 620px;
+    background: #ffffff !important;
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: none;
+}
+
+.si-search-input {
+    flex: 1;
+    height: 50px;
+    padding: 0 18px;
+    border: none !important;
+    outline: none !important;
+    background: #ffffff !important;
+    color: #111111 !important;
+    font-size: 0.95rem;
+    font-weight: 500;
+    box-shadow: none !important;
+}
+
+.si-search-input::placeholder {
+    color: #9CA3AF !important;
+    font-size: 0.95rem;
+    font-weight: 400;
+}
+
+.si-search-input:focus,
+.si-search-input:hover {
+    background: #ffffff !important;
+    color: #111111 !important;
+    box-shadow: none !important;
+}
+
+/* nút vàng bên phải */
+.si-search-btn {
+    height: 50px;
+    padding: 0 22px;
+    border: none !important;
+    border-radius: 0;
+    background: #F4C318 !important;
+    color: #ffffff !important;
+    font-size: 0.95rem;
+    font-weight: 700;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.45rem;
+    cursor: pointer;
+    box-shadow: none !important;
+    white-space: nowrap;
+}
+
+.si-search-btn:hover {
+    background: #e5b400 !important;
+}
+
+.si-search-btn svg {
+    width: 14px;
+    height: 14px;
+    stroke: #ffffff !important;
+    flex-shrink: 0;
+}
+
+/* đường line dưới giống ảnh 2 */
+.si-header::after {
+    content: '';
+    display: block;
+    max-width: 1280px;
+    margin: 1rem auto 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.16);
+    padding: 0 2rem;
+}
+
+@media (max-width: 768px) {
+    .si-header .container {
+        padding: 0 1rem;
+    }
+
+    .si-search-bar {
+        max-width: 100%;
+    }
+
+    .si-search-input,
+    .si-search-btn {
+        height: 46px;
+    }
+}
