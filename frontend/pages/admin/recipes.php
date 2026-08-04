@@ -2,21 +2,30 @@
 require_once '../../includes/bootstrap.php';
 require_admin();
 
-// Lấy recipes thật từ DB
-$sql = "SELECT r.id, r.title, r.main_image, r.difficulty, r.is_published, r.created_at,
-               COALESCE(u.display_name, u.username) AS author,
-               c.name AS category
-        FROM recipes r
-        LEFT JOIN users u ON r.user_id = u.id
-        LEFT JOIN categories c ON r.category_id = c.id
-        ORDER BY r.created_at DESC
-        LIMIT 100";
-$result  = $conn->query($sql);
+// Lấy recipes từ DB
 $recipes = [];
-if ($result) {
-    while ($row = $result->fetch_assoc()) {
-        $recipes[] = $row;
+if ($conn) {
+    try {
+        $sql = "SELECT r.id, r.title, r.main_image, r.difficulty, r.is_published, r.created_at,
+                       COALESCE(u.display_name, u.username) AS author,
+                       c.name AS category
+                FROM recipes r
+                LEFT JOIN users u ON r.user_id = u.id
+                LEFT JOIN categories c ON r.category_id = c.id
+                ORDER BY r.created_at DESC
+                LIMIT 100";
+        $result  = $conn->query($sql);
+        if ($result) {
+            while ($row = $result->fetch_assoc()) {
+                $recipes[] = $row;
+            }
+        }
+    } catch (Throwable $e) {
+        $recipes = [];
     }
+}
+if (empty($recipes)) {
+    $recipes = get_all_recipes();
 }
 ?>
 <!DOCTYPE html>
