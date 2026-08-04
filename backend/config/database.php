@@ -6,10 +6,17 @@ $pass = getenv('DB_PASS') !== false ? getenv('DB_PASS') : "";
 $db   = getenv('DB_NAME') ?: "food_recipe_db";
 $port = (int)(getenv('DB_PORT') ?: 3306);
 
-$conn = new mysqli($host, $user, $pass, $db, $port);
+$conn = null;
 
-if ($conn->connect_error) {
-    die("DB Connection Error: " . $conn->connect_error);
+try {
+    // Disable automatic exception throwing to prevent unhandled script termination
+    mysqli_report(MYSQLI_REPORT_OFF);
+    $conn = @new mysqli($host, $user, $pass, $db, $port);
+    if ($conn->connect_error) {
+        $conn = null;
+    } else {
+        $conn->set_charset("utf8mb4");
+    }
+} catch (Throwable $e) {
+    $conn = null;
 }
-
-$conn->set_charset("utf8mb4");

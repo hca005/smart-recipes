@@ -141,6 +141,82 @@ function get_all_recipes()
         }
     }
 
+    if (empty($dbRecipes)) {
+        // Fallback demo recipes for instant live cloud preview
+        $dbRecipes = [
+            [
+                'id' => 1,
+                'title' => 'Creamy Garlic Pasta',
+                'description' => 'Rich and smooth pasta tossed with roasted garlic, parmesan, and fresh herbs.',
+                'image' => 'https://images.unsplash.com/photo-1621996346565-e3d5d6281293?w=800&fit=crop',
+                'ready_in' => '25 min',
+                'servings' => 2,
+                'author' => 'Chef Alex',
+                'rating' => 4.8,
+                'review_count' => 14,
+                'views' => 120,
+                'created_at' => time(),
+                'ingredients' => ['Pasta', 'Garlic', 'Heavy Cream', 'Parmesan Cheese', 'Olive Oil', 'Parsley'],
+                'steps' => [
+                    ['step_number' => 1, 'instruction' => 'Boil pasta in salted water until al dente.', 'image' => null],
+                    ['step_number' => 2, 'instruction' => 'Sauté garlic in olive oil, add cream and parmesan.', 'image' => null],
+                    ['step_number' => 3, 'instruction' => 'Toss pasta with sauce and garnish with parsley.', 'image' => null]
+                ],
+                'tags' => ['Italian', 'Pasta', 'Quick'],
+                'category' => 'dinner',
+                'difficulty' => 'Easy',
+                'trending' => true,
+                'favorite' => true
+            ],
+            [
+                'id' => 2,
+                'title' => 'Avocado Tuna Salad',
+                'description' => 'Fresh avocado mashed with wild tuna, lime juice, and cilantro.',
+                'image' => 'https://images.unsplash.com/photo-1540420773420-3366772f4999?w=800&fit=crop',
+                'ready_in' => '15 min',
+                'servings' => 2,
+                'author' => 'Nguyen Linh',
+                'rating' => 4.9,
+                'review_count' => 22,
+                'views' => 250,
+                'created_at' => time() - 3600,
+                'ingredients' => ['Avocado', 'Tuna Can', 'Lime', 'Red Onion', 'Cilantro'],
+                'steps' => [
+                    ['step_number' => 1, 'instruction' => 'Dice avocado and mix with canned tuna.', 'image' => null],
+                    ['step_number' => 2, 'instruction' => 'Add lime juice, diced onion, and cilantro.', 'image' => null]
+                ],
+                'tags' => ['Healthy', 'Low Carb', 'Quick'],
+                'category' => 'healthy',
+                'difficulty' => 'Easy',
+                'trending' => true,
+                'favorite' => true
+            ],
+            [
+                'id' => 3,
+                'title' => 'Grilled Chicken Salad',
+                'description' => 'Juicy grilled chicken breast over mixed greens, cherry tomatoes, and balsamic dressing.',
+                'image' => 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=800&fit=crop',
+                'ready_in' => '20 min',
+                'servings' => 1,
+                'author' => 'Admin Chef',
+                'rating' => 4.7,
+                'review_count' => 9,
+                'views' => 95,
+                'created_at' => time() - 7200,
+                'ingredients' => ['Chicken Breast', 'Mixed Greens', 'Cherry Tomatoes', 'Balsamic Vinegar', 'Olive Oil'],
+                'steps' => [
+                    ['step_number' => 1, 'instruction' => 'Season and grill chicken breast for 6-8 minutes per side.', 'image' => null],
+                    ['step_number' => 2, 'instruction' => 'Slice chicken and place over fresh mixed greens.', 'image' => null]
+                ],
+                'tags' => ['High Protein', 'Salad'],
+                'category' => 'lunch',
+                'difficulty' => 'Medium',
+                'trending' => true,
+                'favorite' => true
+            ]
+        ];
+    }
+
     return $dbRecipes;
 }
 
@@ -288,6 +364,17 @@ function get_all_categories()
             }
         }
     }
+
+    if (empty($categories)) {
+        $categories = [
+            ['id' => 1, 'name' => 'Breakfast', 'slug' => 'breakfast', 'description' => 'Delicious morning meals to kickstart your day', 'display_order' => 1],
+            ['id' => 2, 'name' => 'Lunch', 'slug' => 'lunch', 'description' => 'Quick and satisfying mid-day recipes', 'display_order' => 2],
+            ['id' => 3, 'name' => 'Dinner', 'slug' => 'dinner', 'description' => 'Hearty evening dinners for family and friends', 'display_order' => 3],
+            ['id' => 4, 'name' => 'Dessert', 'slug' => 'dessert', 'description' => 'Sweet treats and decadent cakes', 'display_order' => 4],
+            ['id' => 5, 'name' => 'Healthy', 'slug' => 'healthy', 'description' => 'Nutritious low-calorie and wholesome dishes', 'display_order' => 5],
+        ];
+    }
+
     return $categories;
 }
 
