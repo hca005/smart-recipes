@@ -5,8 +5,15 @@ require_admin();
 $_adm_page = 'categories_tags';
 
 // Dùng ống hút lôi toàn bộ Danh mục từ Database lên
-$query_cats = "SELECT c.*, (SELECT COUNT(id) FROM recipes r WHERE r.category_id = c.id) as recipe_count FROM categories c ORDER BY c.id DESC";
-$result_cats = $conn->query($query_cats);
+$result_cats = null;
+if ($conn) {
+    try {
+        $query_cats = "SELECT c.*, (SELECT COUNT(id) FROM recipes r WHERE r.category_id = c.id) as recipe_count FROM categories c ORDER BY c.id DESC";
+        $result_cats = $conn->query($query_cats);
+    } catch (Throwable $e) {
+        $result_cats = null;
+    }
+}
 
 $demoCategories = [];
 if ($result_cats && $result_cats->num_rows > 0) {
@@ -22,6 +29,23 @@ if ($result_cats && $result_cats->num_rows > 0) {
             'color' => $row['color'] ?? '#93C5FD',
             'recipe_count' => $row['recipe_count'] ?? 0
         ];
+    }
+}
+if (empty($demoCategories)) {
+    $demoCategories = [
+        ['id' => 1, 'name' => 'Breakfast', 'slug' => 'breakfast', 'description' => 'Morning meals', 'icon' => 'fa fa-coffee', 'color' => '#FCD34D', 'recipe_count' => 5],
+        ['id' => 2, 'name' => 'Lunch', 'slug' => 'lunch', 'description' => 'Quick lunches', 'icon' => 'fa fa-utensils', 'color' => '#6EE7B7', 'recipe_count' => 8],
+        ['id' => 3, 'name' => 'Dinner', 'slug' => 'dinner', 'description' => 'Hearty dinners', 'icon' => 'fa fa-drumstick-bite', 'color' => '#93C5FD', 'recipe_count' => 10],
+    ];
+}
+
+$result_tags = null;
+if ($conn) {
+    try {
+        $query_tags = "SELECT t.*, (SELECT COUNT(recipe_id) FROM recipe_tags rt WHERE rt.tag_id = t.id) as tag_count FROM tags t ORDER BY t.id DESC";
+        $result_tags = $conn->query($query_tags);
+    } catch (Throwable $e) {
+        $result_tags = null;
     }
 }
 ?>

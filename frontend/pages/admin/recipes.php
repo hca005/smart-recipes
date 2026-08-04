@@ -82,21 +82,16 @@ if (empty($recipes)) {
                 <tr><td colspan="9" style="text-align:center;padding:30px;color:#9CA3AF;">Chưa có công thức nào.</td></tr>
                 <?php else: ?>
                 <?php foreach ($recipes as $r):
-                    if (!empty($r['main_image'])) {
-                        $img = (strpos($r['main_image'], 'http') === 0) 
-                            ? htmlspecialchars($r['main_image']) 
-                            : '/smart-recipes/frontend/assets/images/recipes/' . htmlspecialchars($r['main_image']);
-                    } else {
-                        $img = '';
-                    }
-                    $status = $r['is_published'] ? 'Approved' : 'Pending';
-                    $badgeClass = $r['is_published'] ? 'adm-badge-ok' : 'adm-badge-warn';
+                    $img = !empty($r['image']) ? $r['image'] : (!empty($r['main_image']) ? (strpos($r['main_image'], 'http') === 0 ? $r['main_image'] : (defined('BASE_URL') ? BASE_URL : '/frontend') . '/assets/images/recipes/' . $r['main_image']) : 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=800&fit=crop');
+                    $isPublished = !isset($r['is_published']) || (int)$r['is_published'] === 1;
+                    $status = $isPublished ? 'Approved' : 'Pending';
+                    $badgeClass = $isPublished ? 'adm-badge-ok' : 'adm-badge-warn';
                 ?>
                 <tr data-id="<?= (int)$r['id'] ?>">
                     <td><input type="checkbox" class="adm-cb row-cb" value="<?= (int)$r['id'] ?>"></td>
                     <td>
                         <?php if ($img): ?>
-                        <img src="<?= $img ?>" class="adm-recipe-thumb" alt="" style="width:50px;height:50px;object-fit:cover;border-radius:6px;">
+                        <img src="<?= htmlspecialchars($img) ?>" class="adm-recipe-thumb" alt="" style="width:50px;height:50px;object-fit:cover;border-radius:6px;">
                         <?php else: ?>
                         <div class="adm-recipe-thumb-ph" style="width:50px;height:50px;background:#f3f4f6;border-radius:6px;display:flex;align-items:center;justify-content:center;color:#9CA3AF;">?</div>
                         <?php endif; ?>
@@ -105,12 +100,12 @@ if (empty($recipes)) {
                     <td><?= htmlspecialchars($r['author'] ?? '–') ?></td>
                     <td><?= htmlspecialchars($r['category'] ?? '–') ?></td>
                     <td style="text-transform:capitalize;"><?= htmlspecialchars($r['difficulty'] ?? 'Medium') ?></td>
-                    <td style="color:#9CA3AF;font-size:0.78rem;"><?= date('Y-m-d', strtotime($r['created_at'])) ?></td>
+                    <td><?= date('Y-m-d', is_numeric($r['created_at'] ?? '') ? (int)$r['created_at'] : strtotime($r['created_at'] ?? 'now')) ?></td>
                     <td><span class="adm-badge <?= $badgeClass ?>"><?= $status ?></span></td>
                     <td>
                         <div style="display:flex;gap:0.4rem;">
-                            <a href="/smart-recipes/frontend/pages/recipes/recipe_detail.php?id=<?= (int)$r['id'] ?>" class="adm-btn adm-btn-outline" target="_blank">View</a>
-                            <?php if (!$r['is_published']): ?>
+                            <a href="<?= defined('BASE_URL') ? BASE_URL : '/frontend' ?>/pages/recipes/recipe_detail.php?id=<?= (int)$r['id'] ?>" class="adm-btn adm-btn-outline" target="_blank">View</a>
+                            <?php if (!$isPublished): ?>
                             <button class="adm-btn" style="background:#FCD34D;color:#000;border:none;" onclick="updateRecipeStatus(<?= (int)$r['id'] ?>, 'approve')">Approve</button>
                             <?php else: ?>
                             <button class="adm-btn" style="background:#d1d5db;color:#000;border:none;" onclick="updateRecipeStatus(<?= (int)$r['id'] ?>, 'reject')">Hide</button>

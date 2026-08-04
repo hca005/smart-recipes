@@ -56,8 +56,8 @@ if (empty($users)) {
                     <h1 class="adm-page-title">Users Management</h1>
                     <span style="font-size:0.8125rem;color:#9CA3AF;">Manage community members and roles</span>
                 </div>
-                <span style="background: #e2e8f0; color: #1e293b; padding: 5px 15px; border-radius: 20px; font-size: 0.9rem; font-weight: 600;">
-                    Total: <?= $result->num_rows ?> users
+                <span style="font-size: 0.85rem; color: #64748b; font-weight: 500;">
+                    Total: <?= count($users) ?> users
                 </span>
             </div>
 
@@ -74,7 +74,7 @@ if (empty($users)) {
                         </tr>
                     </thead>
                     <tbody>
-                        <?php while($user = $result->fetch_assoc()): ?>
+                        <?php foreach($users as $user): ?>
                         <tr style="border-bottom: 1px solid #f1f5f9;">
                             <td style="padding: 15px 20px; color: #64748b; font-size: 0.9rem;">#<?= $user['id'] ?></td>
                             <td style="padding: 15px 20px;">
@@ -99,7 +99,7 @@ if (empty($users)) {
                                 </div>
                             </td>
                         </tr>
-                        <?php endwhile; ?>
+                        <?php endforeach; ?>
                     </tbody>
                 </table>
             </div>
